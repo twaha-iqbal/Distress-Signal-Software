@@ -1,0 +1,10 @@
+imestamp: 1743693329089
+Latitude: 23.7362
+Longitude: 90.4143
+Google Maps Link: https://www.google.com/maps?q=23.7362,90.4143
+----------------------------
+Timestamp: 1743693384611
+Latitude: 23.7362
+Longitude: 90.4143
+Google Maps Link: https://www.google.com/maps?q=23.7362,90.4143
+----------------------------

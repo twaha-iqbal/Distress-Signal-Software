@@ -1,0 +1,20 @@
+[
+  {
+    "nid": "1234",
+    "password": "1234",
+    "name": "Md",
+    "phoneNumber": "123456",
+    "bloodGroup": "B-",
+    "age": 23,
+    "sex": "male",
+    "emergencyNumbers": [
+      "4455666",
+      "4354",
+      "435345345"
+    ],
+    "emergencyMails": [
+      "kmosabbir@gmail.com"
+
+    ]
+  }
+]
