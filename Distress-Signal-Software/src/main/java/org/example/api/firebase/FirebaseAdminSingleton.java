@@ -1,4 +1,4 @@
-package org.example.utils.firebase;
+package org.example.api.firebase;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;

@@ -1,4 +1,4 @@
-package org.example.utils;
+package org.example.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class UserUtils {
-    private static final String FILE_PATH = "./database/users.json";
+public class UserService {
+
+    private static final String FILE_PATH = "users.json";
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     // Read users from JSON file
@@ -46,42 +47,42 @@ public class UserUtils {
         }
     }
 
-    // *1. Insert a new user*
-    public static void addUser(String username, String email) {
+    // Insert a new user
+    public void addUser(User user) {
         List<User> users = readUsers(); // Always returns a non-null list
 
-        // Check if user already exists
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
+        // Check if user already exists by nid
+        for (User existingUser : users) {
+            if (existingUser.getNid().equals(user.getNid())) {  // Updated to nid
                 System.out.println("User already exists!");
                 return;
             }
         }
 
-        users.add(new User(username, email));
+        users.add(user);
         writeUsers(users);
         System.out.println("User added successfully!");
     }
 
-    // *2. Retrieve a user by username*
-    public static User getUserByUsername(String username) {
+    // Retrieve a user by nid (National ID)
+    public User getUserByNid(String nid) {  // Updated method name and parameter
         List<User> users = readUsers();
 
         for (User user : users) {
-            if (user.getUsername().equals(username)) {
+            if (user.getNid().equals(nid)) {  // Updated to nid
                 return user;
             }
         }
         return null;
     }
 
-    // *3. Delete a user by username*
-    public static void deleteUser(String username) {
+    // Delete a user by nid
+    public void deleteUser(String nid) {  // Updated to nid
         List<User> users = readUsers();
         Iterator<User> iterator = users.iterator();
 
         while (iterator.hasNext()) {
-            if (iterator.next().getUsername().equals(username)) {
+            if (iterator.next().getNid().equals(nid)) {  // Updated to nid
                 iterator.remove();
                 writeUsers(users);
                 System.out.println("User deleted successfully!");
@@ -91,8 +92,8 @@ public class UserUtils {
         System.out.println("User not found!");
     }
 
-    // *4. Retrieve all users*
-    public static List<User> getAllUsers() {
+    // Retrieve all users
+    public List<User> getAllUsers() {
         return readUsers();
     }
 }

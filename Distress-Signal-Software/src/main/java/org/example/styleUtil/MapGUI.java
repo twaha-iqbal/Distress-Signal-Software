@@ -67,6 +67,7 @@ public class MapGUI {
     }
 
     private static void initializeCrimeDetails() {
+
         crimeDetails.put("Badda", "• Mugging & Snatching – Frequent incidents targeting pedestrians and rickshaw passengers, especially at night.\n" +
                 "• Drug Trafficking – Reports indicate that illegal drug trade is a growing concern.\n" +
                 "• Extortion – Local businesses and small vendors often face threats from extortionists.");

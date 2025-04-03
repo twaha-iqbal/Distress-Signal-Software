@@ -1,4 +1,4 @@
-package org.example.utils.firebase;
+package org.example.api.firebase;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;

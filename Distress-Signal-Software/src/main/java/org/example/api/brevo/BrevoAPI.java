@@ -1,4 +1,4 @@
-package org.example.utils.brevo;
+package org.example.api.brevo;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import java.io.BufferedReader;
@@ -10,7 +10,11 @@ import java.net.URL;
 public class BrevoAPI {
     private static final Dotenv dotenv = Dotenv.load();
     private static final String API_KEY = dotenv.get("BREVO_API_KEY");
+    private static final String sender = "kmosabbir@gmail.com";
     private static final String API_URL = "https://api.brevo.com/v3/smtp/email";
+
+
+
 
     public static void sendDistressSignal(String recipientEmail, String messageContent) {
         try {
@@ -23,7 +27,7 @@ public class BrevoAPI {
             connection.setDoOutput(true);
 
             String jsonMessage = "{"
-                    + "\"sender\": {\"email\": \"nabilrafi112@gmail.com\"},"
+                    + "\"sender\": {\"email\": \"kmosabbir@gmail.com\"},"
                     + "\"to\": [{\"email\": \"" + recipientEmail + "\"}],"
                     + "\"subject\": \"Distress Signal\","
                     + "\"htmlContent\": \"" + messageContent + "\""
@@ -55,10 +59,11 @@ public class BrevoAPI {
         }
     }
 
-    public static void main(String[] args) {
-        String recipientEmail = "nabilrafi112@gmail.com";
-        String messageContent = "This is a test distress signal.";
 
-        sendDistressSignal(recipientEmail, messageContent);
-    }
+//    public static void main(String[] args) {
+//        String recipientEmail = "kmosabbir@gmail.com";
+//        String messageContent = "This is a test distress signal.";
+//
+//        sendDistressSignal(recipientEmail, messageContent);
+//    }
 }
