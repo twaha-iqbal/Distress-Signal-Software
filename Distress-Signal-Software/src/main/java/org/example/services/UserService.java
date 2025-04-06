@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class UserService {
+public class UserService implements IUserService {
 
     private static final String FILE_PATH = "users.json";
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();

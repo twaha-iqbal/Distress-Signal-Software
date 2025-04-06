@@ -5,6 +5,7 @@ import org.example.services.UserService;
 import org.example.views.SignIn;
 import org.example.views.Signup;
 
+import javax.swing.*;
 import java.util.List;
 
 public class SignUpController {
@@ -25,7 +26,7 @@ public class SignUpController {
 
     private void handleRegister() {
         // Fetch data from the view
-        String nid = view.nidText.getText();  // Change from username to nid
+        String nid = view.nidText.getText();
         String password = new String(view.passwordText.getPassword());
         String name = view.nameText.getText();
         String phone = view.phoneText.getText();
@@ -37,35 +38,41 @@ public class SignUpController {
 
         // Basic validation for empty fields
         if (nid.isEmpty() || password.isEmpty() || name.isEmpty()) {
-            System.out.println("All required fields must be filled!");
+            JOptionPane.showMessageDialog(view, "All required fields must be filled!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Create a new user
-        User newUser = new User(nid, password, null, name, phone, bloodGroup, Integer.parseInt(age), sex,
-                List.of(emergencyNumbers.split(",")), List.of(emergencyMails.split(",")));
+        try {
+            int ageInt = Integer.parseInt(age);
 
-        // Save the new user (calling the user service)
-        userService.addUser(newUser);  // This method will print a success or failure message
+            // Create a new user
+            User newUser = new User(nid, password, null, name, phone, bloodGroup, ageInt, sex,
+                    List.of(emergencyNumbers.split(",")), List.of(emergencyMails.split(",")));
 
-        // Assuming addUser() prints success message internally, we just need to check for success
-        // If user is added successfully, navigate to the sign-in page
-        User addedUser = userService.getUserByNid(nid); // Retrieve the user by nid to check if it's in the list
-        if (addedUser != null) {
-            System.out.println("User registered successfully!");
+            // Check if user already exists
+            if (userService.getUserByNid(nid) != null) {
+                JOptionPane.showMessageDialog(view, "User already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
+            // Save the new user
+            userService.addUser(newUser);
+
+            JOptionPane.showMessageDialog(view, "User registered successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
             handleGoToSignIn();
 
-        } else {
-            System.out.println("Registration failed. Please try again.");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(view, "Invalid age format. Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(view, "Registration failed. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }
 
-
     private void handleGoToSignIn() {
         // Close the current Sign-Up frame
-        javax.swing.JFrame frame = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(view.registerButton);
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(view.registerButton);
         frame.dispose();
 
         // Open the Sign-In frame

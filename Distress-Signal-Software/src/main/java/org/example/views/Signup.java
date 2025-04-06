@@ -9,44 +9,51 @@ import java.awt.*;
 
 public class Signup extends Layout {
 
+    // Input fields for sign-up
     public JTextField nidText, nameText, phoneText, bloodGroupText, sexText, ageText, emergencyNumbersText, emergencyMailsText;
     public JPasswordField passwordText;
-    public JButton registerButton;
-    public JButton goToSignInButton;
+    public JButton registerButton, goToSignInButton;
     private SignUpController signUpController;
     private UserService userService;
 
     public Signup() {
         super("Sign Up");
         setContentPane(createForm());
-        userService  = new UserService();
+        userService = new UserService();
         signUpController = new SignUpController(this, userService);
-
-
     }
 
     private JPanel createForm() {
+        // Main panel for the form
         JPanel formPanel = new JPanel();
-        formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
-        formPanel.setBackground(new Color(255, 255, 255));
-        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS)); // Stack components vertically
 
+        formPanel.setBorder(BorderFactory.createEmptyBorder(40, 20, 20, 20)); // Add top padding
+
+        // Title label (Centered)
         JLabel titleLabel = new JLabel("Sign Up", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setForeground(new Color(34, 193, 195));
         formPanel.add(titleLabel);
-        formPanel.add(Box.createVerticalStrut(30));
+        formPanel.add(Box.createVerticalStrut(30)); // Add some vertical space after the title
 
-        addLabelAndField(formPanel, "Nid:", nidText = new JTextField(20));
-        addLabelAndField(formPanel, "Password:", passwordText = new JPasswordField(20));
-        addLabelAndField(formPanel, "Name:", nameText = new JTextField(20));
-        addLabelAndField(formPanel, "Phone:", phoneText = new JTextField(20));
-        addLabelAndField(formPanel, "Blood Group:", bloodGroupText = new JTextField(20));
-        addLabelAndField(formPanel, "Sex:", sexText = new JTextField(20));
-        addLabelAndField(formPanel, "Age:", ageText = new JTextField(20));
-        addLabelAndField(formPanel, "Emergency Numbers:", emergencyNumbersText = new JTextField(20));
-        addLabelAndField(formPanel, "Emergency Emails:", emergencyMailsText = new JTextField(20));
+        // Add fields and labels with a two-column layout
+        JPanel fieldsPanel = new JPanel(new GridLayout(0, 2, 10, 10)); // 2 columns, with spacing between fields
+        fieldsPanel.setOpaque(false); // Make the panel background transparent
+        addLabelAndField(fieldsPanel, "NID:", nidText = new JTextField(20));
+        addLabelAndField(fieldsPanel, "Password:", passwordText = new JPasswordField(20));
+        addLabelAndField(fieldsPanel, "Name:", nameText = new JTextField(20));
+        addLabelAndField(fieldsPanel, "Phone:", phoneText = new JTextField(20));
+        addLabelAndField(fieldsPanel, "Blood Group:", bloodGroupText = new JTextField(20));
+        addLabelAndField(fieldsPanel, "Sex:", sexText = new JTextField(20));
+        addLabelAndField(fieldsPanel, "Age:", ageText = new JTextField(20));
+        addLabelAndField(fieldsPanel, "Emergency Numbers:", emergencyNumbersText = new JTextField(20));
+        addLabelAndField(fieldsPanel, "Emergency Emails:", emergencyMailsText = new JTextField(20));
 
+        // Add the fields panel to the form
+        formPanel.add(fieldsPanel);
+
+        // Register button (Centered)
         registerButton = new JButton("Register");
         registerButton.setFont(new Font("Arial", Font.BOLD, 18));
         registerButton.setBackground(new Color(34, 193, 195));
@@ -55,28 +62,36 @@ public class Signup extends Layout {
         registerButton.setBorder(BorderFactory.createEmptyBorder(15, 30, 15, 30));
         formPanel.add(registerButton);
 
-        // "Go to Sign-In" button
+        // "Go to Sign-In" button (Centered)
         goToSignInButton = new JButton("Already have an account? Go to Sign-In");
         goToSignInButton.setFont(new Font("Arial", Font.PLAIN, 14));
         goToSignInButton.setBackground(new Color(200, 200, 200));
         formPanel.add(goToSignInButton);
 
-        return formPanel;
+        // Center the form within the layout
+        JPanel centeredPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        centeredPanel.setOpaque(false);
+        centeredPanel.add(formPanel);
+
+        return centeredPanel;
     }
 
     private void addLabelAndField(JPanel panel, String labelText, JTextField textField) {
+        // Label
         JLabel label = new JLabel(labelText);
-        label.setFont(new Font("Arial", Font.PLAIN, 18));
+        label.setFont(new Font("Arial", Font.PLAIN, 16));
         label.setForeground(new Color(70, 70, 70));
-        panel.add(label);
 
-        textField.setFont(new Font("Arial", Font.PLAIN, 18));
-        textField.setPreferredSize(new Dimension(300, 40));
+        // Text field
+        textField.setFont(new Font("Arial", Font.PLAIN, 16));
+        textField.setPreferredSize(new Dimension(250, 35));
         textField.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         textField.setBackground(Color.WHITE);
         textField.setCaretColor(new Color(34, 193, 195));
+
+        // Add label and text field to the panel
+        panel.add(label);
         panel.add(textField);
-        panel.add(Box.createVerticalStrut(20));
     }
 
     public static void main(String[] args) {

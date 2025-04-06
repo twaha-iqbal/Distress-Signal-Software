@@ -7,8 +7,7 @@ import org.example.views.Home;
 import org.example.views.SignIn;
 import org.example.views.Signup;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class SignInController {
 
@@ -28,47 +27,45 @@ public class SignInController {
 
     private void handleSignIn() {
         // Fetch data from the view
-        String nid = view.nidText.getText();  // Changed from username to nid
+        String nid = view.nidText.getText();
         String password = new String(view.passwordText.getPassword());
 
         // Basic validation for empty fields
         if (nid.isEmpty() || password.isEmpty()) {
-            System.out.println("Both fields must be filled!");
+            JOptionPane.showMessageDialog(view, "Both fields must be filled!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         // Fetch user from the UserService
-        User user = userService.getUserByNid(nid);  // Changed to get user by nid
+        User user = userService.getUserByNid(nid);
 
         if (user == null) {
-            System.out.println("User not found!");
+            JOptionPane.showMessageDialog(view, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (!user.getPassword().equals(password)) {
-            System.out.println("Incorrect password!");
+            JOptionPane.showMessageDialog(view, "Incorrect password!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            System.out.println("Sign-in successful!");
+            JOptionPane.showMessageDialog(view, "Sign-in successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
             UserSession.setLoggedInUser(user);
             handleGoToHome();
-            // Handle the successful sign-in (e.g., open the main app view)
         }
     }
 
     private void handleGoToSignUp() {
         // Close the current Sign-In frame
-        javax.swing.JFrame frame = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(view.signInButton);
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(view.signInButton);
         frame.dispose();
 
         // Open the Sign-Up frame
         Signup signUpView = new Signup();
         signUpView.setVisible(true);
-
     }
 
     private void handleGoToHome() {
         // Close the current Sign-In frame
-        javax.swing.JFrame frame = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(view.signInButton);
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(view.signInButton);
         frame.dispose();
 
-        // Open the Sign-Up frame
+        // Open the Home frame
         Home homeView = new Home();
         homeView.setVisible(true);
     }
